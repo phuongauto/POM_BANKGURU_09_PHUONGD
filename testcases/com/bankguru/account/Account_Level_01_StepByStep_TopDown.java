@@ -80,9 +80,6 @@ public class Account_Level_01_StepByStep_TopDown {
 	  // Step 04: Check user infor
 	  Assert.assertTrue(driver.findElement(By.xpath("//td[text()='Manger Id : " + userIDInfor + "']")).isDisplayed());
 	  
-	  
-	  
-	  
   }
   
   @Test
