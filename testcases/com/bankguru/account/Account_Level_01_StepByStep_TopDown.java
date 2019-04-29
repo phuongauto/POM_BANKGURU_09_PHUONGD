@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -22,7 +23,7 @@ public class Account_Level_01_StepByStep_TopDown {
   
   @BeforeTest
   public void beforeTest() {
-	  System.setProperty("webdriver.gecko.driver", ".\\resources\\geckodriver.exe");
+	  //System.setProperty("webdriver.gecko.driver", "resources/geckodrivermac");
 	  driver = new FirefoxDriver();
 	  driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 	  driver.get("http://demo.guru99.com/v4/");
@@ -56,7 +57,11 @@ public class Account_Level_01_StepByStep_TopDown {
 	  
 	  /*User ID :	mngr190908
 		Password :	ujEjuqA*/
-	  
+	  /* ở đây nếu khai báo String loginPageUrl = driver.getCurrentUrl(); thì thằng loginPageUrl
+	  chỉ được dùng trong TC01_RegisterToSystem() này mà thôi. Do đó ta khai báo 
+	  String loginPageUrl lên trên đầu class để có thể tái sử dụng ở các @Test khác
+	  Tương tự đối với userIDInfor, passwordInfor
+	  */
   }
   
   @Test
