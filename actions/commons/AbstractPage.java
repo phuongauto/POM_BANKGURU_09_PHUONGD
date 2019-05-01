@@ -31,7 +31,7 @@ public class AbstractPage {
 		// void org.openqa.selenium.WebDriver.get(String arg0)
 	}
 
-	public String getCurrentUrl(WebDriver driver) {
+	public String getCurrentPageUrl(WebDriver driver) {
 		return driver.getCurrentUrl();
 		// String org.openqa.selenium.WebDriver.getCurrentUrl()
 	}
@@ -133,6 +133,12 @@ public class AbstractPage {
 		return element.getAttribute(attributeName);
 	}
 
+	public String getTextElement(WebDriver driver, String locator) {
+		element = driver.findElement(By.xpath(locator));
+		return element.getText();
+		
+	}
+
 	public int countElementNumber(WebDriver driver, String locator) {
 		elements = driver.findElements(By.xpath(locator));
 		return elements.size();
@@ -222,6 +228,13 @@ public class AbstractPage {
 
 	}
 
+	public void sendKeyboardToElement(WebDriver driver, String locator, Keys key) {
+		element = driver.findElement(By.xpath(locator));
+		action = new Actions(driver);
+		action.sendKeys(element, key);
+		
+	}
+	
 	public void doubleClickToElement(WebDriver driver, String locator) {
 		element = driver.findElement(By.xpath(locator));
 		action = new Actions(driver);
