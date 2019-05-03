@@ -10,7 +10,7 @@ import commons.AbstractPage;
 Từng pageObject này sẽ quản lý các hoạt động của từng page đó. Làm đến đâu/cần viết cho chức năng nào thì define tới đó, ko phải define hết toàn bộ sự kiện.
 
 LoginPageObject chứa/quản lý các hoạt động của Login Page.
- * */
+ */
 public class HomePageObject extends AbstractPage{
 	private WebDriver driver;
 	
