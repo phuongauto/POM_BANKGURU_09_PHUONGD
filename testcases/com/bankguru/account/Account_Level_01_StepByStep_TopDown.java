@@ -35,7 +35,7 @@ public class Account_Level_01_StepByStep_TopDown {
 
 		// Step 01: Check Login page displayed
 		Assert.assertTrue(driver.findElement(By.xpath("//form[@name='frmLogin']")).isDisplayed());
-
+		
 		// Step 02: Click to "here" link -> Open Register page
 		loginPageUrl = driver.getCurrentUrl();
 		driver.findElement(By.xpath("//a[text()='here']")).click();

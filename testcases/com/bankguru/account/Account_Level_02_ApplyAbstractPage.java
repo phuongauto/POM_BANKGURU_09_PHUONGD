@@ -28,7 +28,7 @@ public class Account_Level_02_ApplyAbstractPage {
 
 	@BeforeTest
 	public void beforeTest() {
-		// System.setProperty("webdriver.gecko.driver", "resources/geckodrivermac");
+		//System.setProperty("webdriver.gecko.driver", ".\\resources\\geckodriver.exe");
 		driver = new FirefoxDriver();
 		abstractPage = new AbstractPage();
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);

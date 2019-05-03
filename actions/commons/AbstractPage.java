@@ -231,7 +231,7 @@ public class AbstractPage {
 	public void sendKeyboardToElement(WebDriver driver, String locator, Keys key) {
 		element = driver.findElement(By.xpath(locator));
 		action = new Actions(driver);
-		action.sendKeys(element, key);
+		action.sendKeys(element, key).perform();;
 		
 	}
 	
