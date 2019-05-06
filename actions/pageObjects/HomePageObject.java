@@ -11,12 +11,13 @@ Từng pageObject này sẽ quản lý các hoạt động của từng page đ�
 
 LoginPageObject chứa/quản lý các hoạt động của Login Page.
  */
-public class HomePageObject extends AbstractPage{
+public class HomePageObject extends AbstractPage {
 	private WebDriver driver;
-	
+
 	public HomePageObject(WebDriver mappingdriver) {
 		driver = mappingdriver;
 	}
+
 	public boolean isWelcomeMessageDisplayed() {
 		waitForElementVisible(driver, HomePageUI.WELCOME_MESSAGE_TEXT);
 		return isControlDisplayed(driver, HomePageUI.WELCOME_MESSAGE_TEXT);
@@ -28,4 +29,18 @@ public class HomePageObject extends AbstractPage{
 		return isControlDisplayed(driver, USER_ID_FORMAT);
 	}
 
+	public void clickToNewCustomerPage() {
+		waitForElementVisible(driver, HomePageUI.WELCOME_MESSAGE_TEXT);
+		clickToElement(driver, HomePageUI.NEW_CUSTOMER_PAGE_NAVIGATOR);
+	}
+
+	public void clickToEditCustomerPage() {
+		waitForElementVisible(driver, HomePageUI.WELCOME_MESSAGE_TEXT);
+		clickToElement(driver, HomePageUI.EDIT_CUSTOMER_PAGE_NAVIGATOR);
+	}
+
+	public void clickToDeleteCustomerPage() {
+		waitForElementVisible(driver, HomePageUI.WELCOME_MESSAGE_TEXT);
+		clickToElement(driver, HomePageUI.DELETE_CUSTOMER_PAGE_NAVIGATOR);
+	}
 }
