@@ -35,8 +35,9 @@ public class RegisterPageObject extends AbstractPage{
 		return getTextElement(driver, RegisterPageUI.PASSWORD_TEXT);
 	}
 
-	public void openLoginPage(String loginPageUrl) {
+	public LoginPageObject openLoginPage(String loginPageUrl) {
 		openAnyURL(driver, loginPageUrl);
+		return new LoginPageObject(driver);
 	}
 
 }
