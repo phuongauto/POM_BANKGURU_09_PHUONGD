@@ -32,6 +32,7 @@ public class Account_Level_04_PageFactorySelenium {
 
 	@BeforeTest
 	public void beforeTest() {
+		// cái này cho máy MAC:
 		// System.setProperty("webdriver.gecko.driver", "resources/geckodriver");
 		driver = new FirefoxDriver();
 		//abstractPage = new AbstractPage();
@@ -49,15 +50,22 @@ public class Account_Level_04_PageFactorySelenium {
 		// dùng kiểu PageFactory(selenium):
 		loginPFS = new LoginPageFactorySelenium(driver);
 		
+		// dùng kiểu PageObject:
 		// Assert.assertTrue(loginPage.isLoginFormDisplayed());
+		// dùng kiểu PageFactory(selenium):
 		Assert.assertTrue(loginPFS.isLoginFormDisplayed());
 		
+		// dùng kiểu PageObject:
 		// loginPageUrl = loginPage.getLoginPageUrl();
+		// dùng kiểu PageFactory(selenium):
 		loginPageUrl = loginPFS.getLoginPageUrl();
 		
+		// dùng kiểu PageObject:
 		// loginPage.clickToHereLink();
+		// dùng kiểu PageFactory(selenium):
 		loginPFS.clickToHereLink();
 
+		/* Mới chỉ viết class LoginPageFactorySelenium nên tạm ko dùng đoạn code bên dưới này
 		registerPage = new RegisterPageObject(driver);
 		Assert.assertTrue(registerPage.isRegisterPageDisplayed());
 		registerPage.inputToEmailIDTextbox(email);
@@ -65,10 +73,10 @@ public class Account_Level_04_PageFactorySelenium {
 		userIDInfor = registerPage.getUserIDInfor();
 		passwordInfor = registerPage.getPasswordInfor();
 		System.out.println("User: " + userIDInfor + " - Password: " + passwordInfor);
-
+		*/
 	}
 
-	@Test
+	//@Test
 	public void TC02_LoginToSystem() {
 		// đang ở Register Page thì mở Login Page ra
 		registerPage.openLoginPage(loginPageUrl);
@@ -91,7 +99,7 @@ public class Account_Level_04_PageFactorySelenium {
 		return homePage.isDisplayed();
 	}
 
-	@Test
+	//@Test
 	public void TC04() {
 
 	}
