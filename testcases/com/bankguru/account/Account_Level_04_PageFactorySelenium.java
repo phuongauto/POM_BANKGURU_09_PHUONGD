@@ -12,7 +12,9 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import bankguru.pageFactorySelenium.HomePageFactorySelenium;
 import bankguru.pageFactorySelenium.LoginPageFactorySelenium;
+import bankguru.pageFactorySelenium.RegisterPageFactorySelenium;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
 import pageObjects.RegisterPageObject;
@@ -20,9 +22,8 @@ import pageObjects.RegisterPageObject;
 public class Account_Level_04_PageFactorySelenium {
 	WebDriver driver;
 	String userIDInfor, passwordInfor, loginPageUrl, email;
-	LoginPageObject loginPage;
-	RegisterPageObject registerPage;
-	HomePageObject homePage;
+	RegisterPageFactorySelenium registerPFS;
+	HomePageFactorySelenium homePFS;
 	LoginPageFactorySelenium	loginPFS;
 	
 	public int randomNumber() {
@@ -64,43 +65,31 @@ public class Account_Level_04_PageFactorySelenium {
 		// loginPage.clickToHereLink();
 		// dùng kiểu PageFactory(selenium):
 		loginPFS.clickToHereLink();
-
-		/* Mới chỉ viết class LoginPageFactorySelenium nên tạm ko dùng đoạn code bên dưới này
-		registerPage = new RegisterPageObject(driver);
-		Assert.assertTrue(registerPage.isRegisterPageDisplayed());
-		registerPage.inputToEmailIDTextbox(email);
-		registerPage.clickToLoginButton();
-		userIDInfor = registerPage.getUserIDInfor();
-		passwordInfor = registerPage.getPasswordInfor();
-		System.out.println("User: " + userIDInfor + " - Password: " + passwordInfor);
-		*/
+		
+		registerPFS = new RegisterPageFactorySelenium(driver);
+		Assert.assertTrue(registerPFS.isRegisterPageDisplayed());
+		
+		registerPFS.inputToEmailIDTextbox(email);
+		registerPFS.clickToLoginButton();
+		userIDInfor=registerPFS.getUserIDInfor();
+		passwordInfor=registerPFS.getPasswordInfor();
+		
 	}
 
-	//@Test
+	@Test
 	public void TC02_LoginToSystem() {
 		// đang ở Register Page thì mở Login Page ra
-		registerPage.openLoginPage(loginPageUrl);
+		registerPFS.openLoginPage(loginPageUrl);
 		
-		loginPage = new LoginPageObject(driver);
-		Assert.assertTrue(loginPage.isLoginFormDisplayed());
-		loginPage.inputToUserIDTextbox(userIDInfor);
-		loginPage.inputToPasswordTextbox(passwordInfor);
-		loginPage.clickToLoginButton();
+		loginPFS = new LoginPageFactorySelenium(driver);
+		Assert.assertTrue(loginPFS.isLoginFormDisplayed());
 		
-		homePage = new HomePageObject(driver);
-		Assert.assertTrue(homePage.isWelcomeMessageDisplayed());
-		Assert.assertTrue(homePage.isUserIDDisplayed(userIDInfor));
-
-	}
-
-	// @Test
-	public boolean TC03(WebElement homePage) {
-		homePage = driver.findElement(By.xpath(""));
-		return homePage.isDisplayed();
-	}
-
-	//@Test
-	public void TC04() {
+		loginPFS.inputToUserIDTextbox(userIDInfor);
+		loginPFS.inputToPasswordTextbox(passwordInfor);
+		loginPFS.clickToLoginButton();
+		
+		homePFS = new HomePageFactorySelenium(driver);
+		Assert.assertTrue(homePFS.isWelcomeMessageDisplayed());
 
 	}
 

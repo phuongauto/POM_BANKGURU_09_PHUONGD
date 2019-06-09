@@ -15,7 +15,6 @@ import commons.AbstractPage;
 public class LoginPageFactorySelenium extends AbstractPage {
 	private WebDriver driver;
 
-	
 	@FindBy(how = How.XPATH, using = "//form[@name='frmLogin']")
 	private WebElement loginForm;
 
@@ -28,7 +27,7 @@ public class LoginPageFactorySelenium extends AbstractPage {
 	@FindBy(how = How.NAME, using = "password")
 	private WebElement passwordTextbox;
 
-	@FindBy(how = How.CSS, using = "//input[@name='btnLogin']")
+	@FindBy(how = How.XPATH, using = "//input[@name='btnLogin']")
 	private WebElement loginButton;
 
 	/* Cả đống private trên là thay cho đám dưới này: 
@@ -40,31 +39,39 @@ public class LoginPageFactorySelenium extends AbstractPage {
 	   public static final String HERE_LINK = "//a[text()='here']";
 	 */
 
-	public LoginPageFactorySelenium(WebDriver mappingdriver) {
-		this.driver = driver;
-		PageFactory.initElements(driver, this.getClass());
+	public LoginPageFactorySelenium(WebDriver mappingDriver) {
+		driver = mappingDriver;
+		PageFactory.initElements(driver, this);
 		
 	}
 
 	public boolean isLoginFormDisplayed() {
-		return true;
-	}
-
-	public String getLoginPageUrl() {
-		return null;
-	}
-
-	public void clickToHereLink() {
+		return loginForm.isDisplayed();
 		
 	}
 
+	public String getLoginPageUrl() {
+		return getCurrentPageUrl(driver);
+		
+	}
+
+	public void clickToHereLink() {
+		hereLink.click();
+	}
+
 	public void inputToUserIDTextbox(String userIDInfor) {
+		userIDTextbox.sendKeys(userIDInfor);
+		
 	}
 
 	public void inputToPasswordTextbox(String passwordInfor) {
+		passwordTextbox.sendKeys(passwordInfor);
+		
 	}
 
 	public void clickToLoginButton() {
+		loginButton.click();
+		
 	}
 }
 
