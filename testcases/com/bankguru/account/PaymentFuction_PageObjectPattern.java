@@ -12,17 +12,16 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import bankguru.SingletonPattern.HomePageObjectSingletonPattern;
-import bankguru.SingletonPattern.LoginPageObjectSingletonPattern;
-import bankguru.SingletonPattern.RegisterPageObjectSingletonPattern;
-import commons.PageFactoryManagerSingleton;
+import pageObjects.HomePageObject;
+import pageObjects.LoginPageObject;
+import pageObjects.RegisterPageObject;
 
-public class Account_Level_05_PageFactoryManager_SingletonPattern {
+public class PaymentFuction_PageObjectPattern {
 	WebDriver driver;
 	String userIDInfor, passwordInfor, loginPageUrl, email;
-	LoginPageObjectSingletonPattern loginPage;
-	RegisterPageObjectSingletonPattern registerPage;
-	HomePageObjectSingletonPattern homePage;
+	LoginPageObject loginPage;
+	RegisterPageObject registerPage;
+	HomePageObject homePage;
 
 	public int randomNumber() {
 		Random random = new Random();
@@ -33,46 +32,46 @@ public class Account_Level_05_PageFactoryManager_SingletonPattern {
 	public void beforeTest() {
 		// System.setProperty("webdriver.gecko.driver", "resources/geckodriver");
 		driver = new FirefoxDriver();
+		//abstractPage = new AbstractPage();
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		//abstractPage.openAnyURL(driver, "http://demo.guru99.com/v4/");
 		driver.get("http://demo.guru99.com/v4/");
 		email = "selenium" + randomNumber() + "@gmail.com";
-		// khởi tạo 1 lần cho LoginPageObjectSingletonPattern
-		//loginPage = new LoginPageObjectSingletonPattern(driver);
-		loginPage = PageFactoryManagerSingleton.getLoginPage(driver);
 	}
 
 	@Test
 	public void TC01_RegisterToSystem() {
+		// do ở test case này mình phải mở Login Page ra đầu tiên, nên phải khai báo khởi tạo để driver được map qua lại
+		loginPage = new LoginPageObject(driver);
 		Assert.assertTrue(loginPage.isLoginFormDisplayed());
-		loginPageUrl = loginPage.getLoginPageUrl(); 
-		registerPage = loginPage.clickToHereLink();
-		// registerPage = new RegisterPageObjectSingletonPattern(driver);
+		loginPageUrl = loginPage.getLoginPageUrl();
+		loginPage.clickToHereLink();
+		// => qua Register Page, do đó phải khai báo khởi tạo để driver được map qua lại
+		registerPage = new RegisterPageObject(driver);
 		Assert.assertTrue(registerPage.isRegisterPageDisplayed());
 		registerPage.inputToEmailIDTextbox(email);
 		registerPage.clickToLoginButton();
 		userIDInfor = registerPage.getUserIDInfor();
 		passwordInfor = registerPage.getPasswordInfor();
 		System.out.println("User: " + userIDInfor + " - Password: " + passwordInfor);
-		
+
 	}
 
 	@Test
 	public void TC02_LoginToSystem() {
-		loginPage = registerPage.openLoginPage(loginPageUrl);
-		// loginPage = new LoginPageObjectSingletonPattern(driver);
+		// đang ở Register Page thì mở Login Page ra
+		registerPage.openLoginPage(loginPageUrl);
+		
+		loginPage = new LoginPageObject(driver);
 		Assert.assertTrue(loginPage.isLoginFormDisplayed());
 		loginPage.inputToUserIDTextbox(userIDInfor);
 		loginPage.inputToPasswordTextbox(passwordInfor);
-		homePage = loginPage.clickToLoginButton();
-		// homePage = new HomePageObjectSingletonPattern(driver);
+		loginPage.clickToLoginButton();
+		
+		homePage = new HomePageObject(driver);
 		Assert.assertTrue(homePage.isWelcomeMessageDisplayed());
 		Assert.assertTrue(homePage.isUserIDDisplayed(userIDInfor));
-		
-		// nếu thêm 1 step là từ Home page ta logout ra -> login page
-		// vậy sẽ phải khởi tạo Login page 1 lần nữa
-		loginPage = homePage.clickToLogoutLink();
-		Assert.assertTrue(loginPage.isLoginFormDisplayed());
-		
+
 	}
 
 	// @Test
