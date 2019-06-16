@@ -15,6 +15,25 @@ public class PageFactoryManagerSingleton {
 	private static RegisterPageObjectSingletonPattern registerPage;
 	
 	public static LoginPageObjectSingletonPattern getLoginPage(WebDriver driver) {
+		return new LoginPageObjectSingletonPattern(driver);
+	}
+	
+	public static HomePageObjectSingletonPattern gethomePage(WebDriver driver) {
+			return new HomePageObjectSingletonPattern(driver);
+	}
+	
+	public static RegisterPageObjectSingletonPattern getregisterPage(WebDriver driver) {
+		return new RegisterPageObjectSingletonPattern(driver);
+	}
+		
+	
+	
+	
+	
+	
+	
+	/* Đoạn code này dùng cho đơn luồng(single thread) xem video topic 23 POM 06 Multiple browsers and Parallel Testing tầm phút 1:35
+	public static LoginPageObjectSingletonPattern getLoginPage(WebDriver driver) {
 		
 		if(loginPage != null) {
 			return loginPage;
@@ -43,4 +62,5 @@ public class PageFactoryManagerSingleton {
 		}
 		
 	}
+	*/
 }
