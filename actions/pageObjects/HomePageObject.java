@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 import bankguru.HomePageUI;
 import commons.AbstractPage;
+import commons.PageFactoryManager;
 
 /* 
  Package pageObjects bên trong tầng Actions: chưa tất cả các pages(phân theo nhóm chức năng(chứ ko theo form hay màn hình) ví dụ như LoginPageObject, NewCustomerPageObject, RegisterPageObject, EditCustomerPageObject,...) của hệ thống.
@@ -43,4 +44,21 @@ public class HomePageObject extends AbstractPage {
 		waitForElementVisible(driver, HomePageUI.WELCOME_MESSAGE_TEXT);
 		clickToElement(driver, HomePageUI.DELETE_CUSTOMER_PAGE_NAVIGATOR);
 	}
+
+	public LoginPageObject clickToLogoutLink() {
+		waitForElementVisible(driver, HomePageUI.LOG_OUT_LINK);
+		clickToElement(driver, HomePageUI.LOG_OUT_LINK);
+		waitForAlertPresence(driver);
+		acceptAlert(driver);
+		return PageFactoryManager.getLoginPage(driver);
+		
+	}
+	/* cái này đã được khai báo ở AbstractPage để dùng chung rồi
+	public NewAccountPageObject openNewAccountPage() {
+		waitForElementVisible(driver, HomePageUI.NEW_ACCOUNT_LINK);
+		clickToElement(driver, HomePageUI.NEW_ACCOUNT_LINK);
+		return PageFactoryManager.getNewAccountPage(driver);
+		
+	}*/
+	
 }

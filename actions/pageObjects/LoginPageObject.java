@@ -28,9 +28,10 @@ public class LoginPageObject extends AbstractPage{
 		return getCurrentPageUrl(driver);
 	}
 
-	public void clickToHereLink() {
+	public RegisterPageObject clickToHereLink() {
 		waitForElementVisible(driver, LoginPageUI.HERE_LINK);
 		clickToElement(driver, LoginPageUI.HERE_LINK);
+		return new RegisterPageObject(driver);
 	}
 
 	public void inputToUserIDTextbox(String userIDInfor) {

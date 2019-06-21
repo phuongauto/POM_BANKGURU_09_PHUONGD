@@ -13,6 +13,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import bankguru.AbstractPageUI;
+import pageObjects.DepositPageObject;
+import pageObjects.FundTransferPageObject;
+import pageObjects.HomePageObject;
+import pageObjects.NewAccountPageObject;
+
 /* các hàm dùng chung cho tầng pageObjects */
 
 public class AbstractPage {
@@ -335,4 +341,37 @@ public class AbstractPage {
 		waitExplicit.until(ExpectedConditions.alertIsPresent());
 		
 	}
+
+	// Viết các hàm để mở ra 14 pages
+	public HomePageObject openHomePage(WebDriver driver) {
+		waitForElementVisible(driver, AbstractPageUI.HOME_PAGE_LINK);
+		clickToElement(driver, AbstractPageUI.HOME_PAGE_LINK);
+		return PageFactoryManager.getHomePage(driver);
+		
+	}
+	
+	public NewAccountPageObject openNewAccountPage(WebDriver driver) {
+		waitForElementVisible(driver, AbstractPageUI.NEW_ACCOUNT_LINK);
+		clickToElement(driver, AbstractPageUI.NEW_ACCOUNT_LINK);
+		return PageFactoryManager.getNewAccountPage(driver);
+		
+	}
+	
+	public DepositPageObject openDepositPage(WebDriver driver) {
+		waitForElementVisible(driver, AbstractPageUI.DEPOSIT_LINK);
+		clickToElement(driver, AbstractPageUI.DEPOSIT_LINK);
+		return PageFactoryManager.getDepositPage(driver);
+		
+	}
+
+	public FundTransferPageObject openFundTransferPage(WebDriver driver) {
+		waitForElementVisible(driver, AbstractPageUI.FUND_TRANSFER_LINK);
+		clickToElement(driver, AbstractPageUI.FUND_TRANSFER_LINK);
+		return PageFactoryManager.getFundTransferPage(driver);
+		
+	}
+
+
+
+
 }

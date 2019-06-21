@@ -35,6 +35,7 @@ public class AbstractTest {
 		// }
 
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
 		driver.get("http://demo.guru99.com/v4/");
 		return driver;
 		// xem đoạn 01h:50phut của video để biết tại sao lại return driver nhé
