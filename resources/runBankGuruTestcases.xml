@@ -4,7 +4,7 @@
 		<parameter name="browser" value="firefox" />
 		<classes>
 			<class
-				name="com.bankguru.account.Account_Level_07_WebDriverLifeCycle_ActionChain" />
+				name="com.bankguru.account.Account_Level_08_DynamicLocator_RestParameter" />
 		</classes>
 	</test> <!-- Test -->
 <!-- 	<test name="Run on CHROME"> -->

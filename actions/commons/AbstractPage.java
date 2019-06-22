@@ -12,6 +12,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
 
 import bankguru.AbstractPageUI;
 import pageObjects.DepositPageObject;
@@ -81,6 +82,8 @@ public class AbstractPage {
 	}
 
 	/* WebElement */
+	
+	// hàm cũ khi chưa sử dụng Rest Parameter
 	public void clickToElement(WebDriver driver, String locator) {
 		WebElement element = driver.findElement(By.xpath(locator));
 		element.click();
@@ -91,9 +94,16 @@ public class AbstractPage {
 
 	}
 
+	// hàm cũ khi chưa sử dụng Rest Parameter
 	public void sendkeyToElement(WebDriver driver, String locator, String value) {
 		WebElement element = driver.findElement(By.xpath(locator));
 		element.sendKeys(value);
+		
+	}
+	public void sendkeyToElement(WebDriver driver, String locator, String valueToSendkey, String... dynamicValue) {
+		locator = String.format(locator, (Object[]) dynamicValue);
+		WebElement element = driver.findElement(By.xpath(locator));
+		element.sendKeys(valueToSendkey);
 
 	}
 
@@ -139,7 +149,14 @@ public class AbstractPage {
 		return element.getAttribute(attributeName);
 	}
 
+	// hàm cũ khi chưa sử dụng Rest Parameter
 	public String getTextElement(WebDriver driver, String locator) {
+		element = driver.findElement(By.xpath(locator));
+		return element.getText();
+		
+	}
+	public String getTextElement(WebDriver driver, String locator, String... dynamicValue) {
+		locator = String.format(locator, (Object[]) dynamicValue);
 		element = driver.findElement(By.xpath(locator));
 		return element.getText();
 		
@@ -165,7 +182,13 @@ public class AbstractPage {
 		}
 	}
 
+	// hàm cũ khi chưa sử dụng Rest Parameter
 	public boolean isControlDisplayed(WebDriver driver, String locator) {
+		element = driver.findElement(By.xpath(locator));
+		return element.isDisplayed();
+	}
+	public boolean isControlDisplayed(WebDriver driver, String locator, String... dynamicValue) {
+		locator = String.format(locator, (Object[]) dynamicValue);
 		element = driver.findElement(By.xpath(locator));
 		return element.isDisplayed();
 	}
@@ -315,6 +338,7 @@ public class AbstractPage {
 		
 	}
 	
+	// hàm cũ khi chưa sử dụng Rest Parameter
 	public  void waitForElementVisible(WebDriver driver, String locator) {
 		waitExplicit = new WebDriverWait(driver, 30);
 		byLocator = By.xpath(locator);
@@ -342,18 +366,11 @@ public class AbstractPage {
 		
 	}
 
-	// Viết các hàm để mở ra 14 pages
+	// Viết các hàm để mở ra 14 pages - Bài học WebDriver LifeCylce:
 	public HomePageObject openHomePage(WebDriver driver) {
 		waitForElementVisible(driver, AbstractPageUI.HOME_PAGE_LINK);
 		clickToElement(driver, AbstractPageUI.HOME_PAGE_LINK);
 		return PageFactoryManager.getHomePage(driver);
-		
-	}
-	
-	public NewAccountPageObject openNewAccountPage(WebDriver driver) {
-		waitForElementVisible(driver, AbstractPageUI.NEW_ACCOUNT_LINK);
-		clickToElement(driver, AbstractPageUI.NEW_ACCOUNT_LINK);
-		return PageFactoryManager.getNewAccountPage(driver);
 		
 	}
 	
@@ -370,8 +387,85 @@ public class AbstractPage {
 		return PageFactoryManager.getFundTransferPage(driver);
 		
 	}
-
-
-
-
+	
+	public NewAccountPageObject openNewAccountPage(WebDriver driver) {
+		waitForElementVisible(driver, AbstractPageUI.NEW_ACCOUNT_LINK);
+		clickToElement(driver, AbstractPageUI.NEW_ACCOUNT_LINK);
+		return PageFactoryManager.getNewAccountPage(driver);
+		
+	}
+	
+	// Đây là hàm đại điện ở bài học Dynamic Locator. Nó được viết ra để thay cho 14 hàm ở bài WebDriver LifeCylce.
+	// Lưu ý là cần refactor lại 2 hàm con waitForElementVisible() và clickToElement()
+	public AbstractPage openMultiplePage(WebDriver driver, String pageName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
+		clickToElement(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
+		
+		switch (pageName) {
+		case "Manager":
+			return PageFactoryManager.getHomePage(driver);
+		case "New Account":
+			return PageFactoryManager.getNewAccountPage(driver);
+		case "Deposit":
+			return PageFactoryManager.getDepositPage(driver);
+		case "Fund Transfer":
+			return PageFactoryManager.getFundTransferPage(driver);
+		default: 
+			return PageFactoryManager.getHomePage(driver);
+		}
+		
+		/* Switch case kia có thể thay bằng cách sử dụng if else như sau:
+		if(pageName.equalsIgnoreCase("Manager")) {
+			return PageFactoryManager.getHomePage(driver);
+		}	else if(pageName.equalsIgnoreCase("New Account")) {
+			return PageFactoryManager.getNewAccountPage(driver);
+		}	else if(pageName.equalsIgnoreCase("Deposit")) {
+			return PageFactoryManager.getDepositPage(driver);
+		}	else if(pageName.equalsIgnoreCase("Fund Transfer")) {
+			return PageFactoryManager.getFundTransferPage(driver);
+		}*/
+		
+	}
+	
+	// vậy ta cần refactor lại hàm này bằng cách: thêm 1 tham số String value
+	public  void waitForElementVisible(WebDriver driver, String locator, String... dynamicValue) {
+		waitExplicit = new WebDriverWait(driver, 30);
+		locator = String.format(locator,(Object[]) dynamicValue);
+		byLocator = By.xpath(locator);
+		waitExplicit.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(byLocator));
+	}
+	
+	// vậy ta cần refactor lại hàm này bằng cách: thêm 1 tham số String value
+	public void clickToElement(WebDriver driver, String locator, String... dynamicValue) {
+		locator = String.format(locator, (Object[]) dynamicValue);
+		WebElement element = driver.findElement(By.xpath(locator));
+		element.click();
+	}
+	
+	// nếu có quá nhiều page thì không thể cứ switch case mãi được(tầm 20 page trở lên thì sao?). Ta sẽ code như sau:
+	public void openMultiplePages(WebDriver driver, String pageName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
+		clickToElement(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
+	}
+	// Sau đó code ở testcase thì sẽ như sau:
+	/*
+		@Test
+		public void TC04() {
+		// Cách code khi mà có quá nhiều page, không thể define mãi vào switch case bên trong hàm openMultiplePage ở class AbstractPage được: 
+		homePage.openMultiplePages(driver, "New Account");
+		newAccountPage = PageFactoryManager.getNewAccountPage(driver);
+		
+		newAccountPage.openMultiplePages(driver, "Deposit");
+		depositPage = PageFactoryManager.getDepositPage(driver);
+		
+		depositPage.openMultiplePages(driver, "Fund Transfer");
+		fundTransferPage = PageFactoryManager.getFundTransferPage(driver);
+		
+		fundTransferPage.openMultiplePages(driver, "Manager");
+		homePage = PageFactoryManager.getHomePage(driver);
+	}
+	*/
+	
+	
+	
 }
