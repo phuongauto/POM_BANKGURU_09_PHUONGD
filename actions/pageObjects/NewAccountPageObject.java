@@ -19,6 +19,15 @@ public class NewAccountPageObject extends AbstractPage {
 		driver = mappingdriver;
 	}
 	
+	// cách viết chưa dynamic
+	public boolean isNewAccountPageDisplayed() {
+		waitForElementVisible(driver, NewAccountPageUI.ADD_NEW_ACCOUNT_FORM);
+		return isControlDisplayed(driver, NewAccountPageUI.ADD_NEW_ACCOUNT_FORM);
+		
+	}
+	
+	
+	
 	/* cái này sẽ được khai báo ở AbstractPage để dùng chung
 	public DepositPageObject openDepositPage() {
 		waitForElementVisible(driver, NewAccountPageUI.DEPOSIT_LINK);

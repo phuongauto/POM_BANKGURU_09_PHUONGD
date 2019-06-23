@@ -9,5 +9,5 @@ package bankguru;
 
 public class NewAccountPageUI {
 	public static final String DEPOSIT_LINK = "//ul[@class='menusubnav']//a[text()='Deposit']";
-	
+	public static final String ADD_NEW_ACCOUNT_FORM = "//p[text()='Add new account form']";
 }

@@ -29,8 +29,6 @@ public class AbstractPage {
 	WebDriverWait waitExplicit;
 	Actions action;
 	By byLocator;
-	long shortTimeout = 5;
-	long longTimeout = 30;
 	
 	
 	public void openAnyURL(WebDriver driver, String URL) {
@@ -332,7 +330,7 @@ public class AbstractPage {
 	}
 	
 	public  void waitForElementPresence(WebDriver driver, String locator) {
-		waitExplicit = new WebDriverWait(driver, 30);
+		waitExplicit = new WebDriverWait(driver, Constants.LONG_TIMEOUT);
 		byLocator = By.xpath(locator);
 		waitExplicit.until(ExpectedConditions.presenceOfElementLocated(byLocator));
 		
@@ -340,32 +338,33 @@ public class AbstractPage {
 	
 	// hàm cũ khi chưa sử dụng Rest Parameter
 	public  void waitForElementVisible(WebDriver driver, String locator) {
-		waitExplicit = new WebDriverWait(driver, 30);
+		waitExplicit = new WebDriverWait(driver, Constants.LONG_TIMEOUT);
 		byLocator = By.xpath(locator);
 		waitExplicit.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(byLocator));
 		
 	}
 	
 	public  void waitForElementClickable(WebDriver driver, String locator) {
-		waitExplicit = new WebDriverWait(driver, 30);
+		waitExplicit = new WebDriverWait(driver, Constants.LONG_TIMEOUT);
 		byLocator = By.xpath(locator);
 		waitExplicit.until(ExpectedConditions.elementToBeClickable(byLocator));
 		
 	}
 	
 	public  void waitForElementInvisible(WebDriver driver, String locator) {
-		waitExplicit = new WebDriverWait(driver, 30);
+		waitExplicit = new WebDriverWait(driver, Constants.LONG_TIMEOUT);
 		byLocator = By.xpath(locator);
 		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(byLocator));
 		
 	}
 	
 	public  void waitForAlertPresence(WebDriver driver) {
-		waitExplicit = new WebDriverWait(driver, 30);
+		waitExplicit = new WebDriverWait(driver, Constants.LONG_TIMEOUT);
 		waitExplicit.until(ExpectedConditions.alertIsPresent());
 		
 	}
-
+	
+	//===========================================================================
 	// Viết các hàm để mở ra 14 pages - Bài học WebDriver LifeCylce:
 	public HomePageObject openHomePage(WebDriver driver) {
 		waitForElementVisible(driver, AbstractPageUI.HOME_PAGE_LINK);
@@ -394,6 +393,8 @@ public class AbstractPage {
 		return PageFactoryManager.getNewAccountPage(driver);
 		
 	}
+	
+	//===========================================================================
 	
 	// Đây là hàm đại điện ở bài học Dynamic Locator. Nó được viết ra để thay cho 14 hàm ở bài WebDriver LifeCylce.
 	// Lưu ý là cần refactor lại 2 hàm con waitForElementVisible() và clickToElement()
@@ -465,7 +466,25 @@ public class AbstractPage {
 		homePage = PageFactoryManager.getHomePage(driver);
 	}
 	*/
+	//===========================================================================
+	// Các hàm dynamic ở bài học Dynamic Element:
+	public void inputToDynamicTextboxTextArea(WebDriver driver, String fieldName, String valueToSendkey) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXT_AREA_BUTTON_CHECKBOX, fieldName);
+		sendkeyToElement(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXT_AREA_BUTTON_CHECKBOX, valueToSendkey, fieldName);
+	}
 	
+	public void clickToDynamicButtonTextboxTextArea(WebDriver driver, String fieldName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXT_AREA_BUTTON_CHECKBOX, fieldName);
+		clickToElement(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXT_AREA_BUTTON_CHECKBOX, fieldName);
+	}
 	
+	public String getDynamicErrorMessage(WebDriver driver, String fieldName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_ERROR_MESSAGE, fieldName);
+		return getTextElement(driver, AbstractPageUI.DYNAMIC_ERROR_MESSAGE, fieldName);
+	}
 	
+	public boolean isDynamicPageTitleDisplayed(WebDriver driver, String pageTitle) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_PAGE_TITLE, pageTitle);
+		return isControlDisplayed(driver, AbstractPageUI.DYNAMIC_PAGE_TITLE, pageTitle);
+	}
 }

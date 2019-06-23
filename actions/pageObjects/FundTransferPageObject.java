@@ -18,6 +18,12 @@ public class FundTransferPageObject extends AbstractPage {
 	public FundTransferPageObject(WebDriver mappingdriver) {
 		driver = mappingdriver;
 	}
+
+	public boolean isFundTransferPageDisplayed() {
+		waitForElementVisible(driver, FundTransferPageUI.FUND_TRANSFER_FORM);
+		return isControlDisplayed(driver, FundTransferPageUI.FUND_TRANSFER_FORM);
+		
+	}
 	
 	/* cái này sẽ được khai báo ở AbstractPage để dùng chung
 	public HomePageObject openHomePage() {

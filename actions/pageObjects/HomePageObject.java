@@ -60,5 +60,11 @@ public class HomePageObject extends AbstractPage {
 		return PageFactoryManager.getNewAccountPage(driver);
 		
 	}*/
+
+	public boolean isHomePageDisplayed() {
+		waitForElementVisible(driver, HomePageUI.WELCOME_MESSAGE_TEXT);
+		return isControlDisplayed(driver, HomePageUI.WELCOME_MESSAGE_TEXT);
+		
+	}
 	
 }

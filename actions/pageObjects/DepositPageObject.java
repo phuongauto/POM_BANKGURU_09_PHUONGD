@@ -3,6 +3,7 @@ package pageObjects;
 import org.openqa.selenium.WebDriver;
 
 import bankguru.DepositPageUI;
+import bankguru.NewAccountPageUI;
 import commons.AbstractPage;
 import commons.PageFactoryManager;
 
@@ -17,6 +18,12 @@ public class DepositPageObject extends AbstractPage {
 
 	public DepositPageObject(WebDriver mappingdriver) {
 		driver = mappingdriver;
+	}
+
+	public boolean isDepositPageDisplayed() {
+		waitForElementVisible(driver, DepositPageUI.DEPOSIT_FORM);
+		return isControlDisplayed(driver, DepositPageUI.DEPOSIT_FORM);
+		
 	}
 	
 	/* cái này sẽ được khai báo ở AbstractPage để dùng chung

@@ -9,5 +9,6 @@ package bankguru;
 
 public class DepositPageUI {
 	public static final String FUND_TRANSFER_LINK = "//ul[@class='menusubnav']//a[text()='Fund Transfer']"; 
+	public static final String DEPOSIT_FORM = "//p[text()='Amount Deposit Form']";
 	
 }

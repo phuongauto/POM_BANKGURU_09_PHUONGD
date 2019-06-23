@@ -9,4 +9,8 @@ package bankguru;
 
 public class FundTransferPageUI {
 	public static final String HOME_PAGE_LINK = "//ul[@class='menusubnav']//a[text()='Manager']"; 
+	public static final String FUND_TRANSFER_FORM = "//p[text()='Fund transfer']";
+	
+
+
 }

@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import bankguru.NewAccountPageUI;
 import commons.AbstractTest;
 import commons.PageFactoryManager;
 import commons.PageFactoryManagerSingleton;
@@ -110,9 +111,16 @@ public class Account_Level_08_DynamicLocator_RestParameter extends AbstractTest 
 		// trước tiên code như này đã newAccountPage = homePage.openMultiplePage(driver, "New Account");
 		// xong rồi add cast (NewAccountPageObject) là được như dưới
 		newAccountPage = (NewAccountPageObject) homePage.openMultiplePage(driver, "New Account");
+		Assert.assertTrue(newAccountPage.isNewAccountPageDisplayed());
+		
 		depositPage = (DepositPageObject) newAccountPage.openMultiplePage(driver, "Deposit");
+		Assert.assertTrue(depositPage.isDepositPageDisplayed());
+		
 		fundTransferPage = (FundTransferPageObject) depositPage.openMultiplePage(driver, "Fund Transfer");
+		Assert.assertTrue(fundTransferPage.isFundTransferPageDisplayed());
+		
 		homePage = (HomePageObject) fundTransferPage.openMultiplePage(driver, "Manager");
+		Assert.assertTrue(homePage.isHomePageDisplayed());
 		
 	}
 
@@ -121,16 +129,22 @@ public class Account_Level_08_DynamicLocator_RestParameter extends AbstractTest 
 		// Cách code khi mà có quá nhiều page, không thể define mãi vào switch case bên trong hàm openMultiplePage ở class AbstractPage được: 
 		homePage.openMultiplePages(driver, "New Account");
 		newAccountPage = PageFactoryManager.getNewAccountPage(driver);
+		Assert.assertTrue(newAccountPage.isNewAccountPageDisplayed());
 		
 		newAccountPage.openMultiplePages(driver, "Deposit");
 		depositPage = PageFactoryManager.getDepositPage(driver);
+		Assert.assertTrue(depositPage.isDepositPageDisplayed());
 		
 		depositPage.openMultiplePages(driver, "Fund Transfer");
 		fundTransferPage = PageFactoryManager.getFundTransferPage(driver);
+		Assert.assertTrue(fundTransferPage.isFundTransferPageDisplayed());
 		
 		fundTransferPage.openMultiplePages(driver, "Manager");
 		homePage = PageFactoryManager.getHomePage(driver);
+		Assert.assertTrue(homePage.isHomePageDisplayed());
+		
 	}
+
 
 	@AfterTest
 	public void afterTest() {
