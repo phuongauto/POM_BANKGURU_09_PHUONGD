@@ -9,12 +9,10 @@ package bankguru;
 
 public class HomePageUI {
 	public static final String WELCOME_MESSAGE_TEXT = "//marquee[text()=\"Welcome To Manager's Page of Guru99 Bank\"]"; 
-	public static final String USER_ID_TEXT = "//td[text()='Manger Id : %s']"; 
-	public static final String NEW_CUSTOMER_PAGE_NAVIGATOR = "//a[text()='New Customer']";
-	public static final String EDIT_CUSTOMER_PAGE_NAVIGATOR = "//a[text()='Edit Customer']";
-	public static final String DELETE_CUSTOMER_PAGE_NAVIGATOR = "//a[text()='Delete Customer']";
+	public static final String DYNAMIC_WELCOME_USER_ID_TEXT = "//td[text()='Manger Id : %s']"; 
 	public static final String LOG_OUT_LINK = "//a[text()='Log out']";
-	public static final String NEW_ACCOUNT_LINK = "//ul[@class='menusubnav']//a[text()='New Account']";
+	public static final String LOGIN_FORM = "//form[@name='frmLogin']";
+	
 	
 	
 }

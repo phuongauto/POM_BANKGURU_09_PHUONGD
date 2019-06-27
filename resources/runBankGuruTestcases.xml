@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="BANK GURU" parallel="tests" thread-count="3">
+<suite name="BANK GURU" parallel="false">
 	<test name="Run on FIREFOX">
 		<parameter name="browser" value="firefox" />
+		<parameter name="url" value="bankguru" />
 		<classes>
-			<class
-				name="com.bankguru.account.Account_Level_08_DynamicLocator_RestParameter" />
+			<class name="commons.Common_01_RegisterToSystem" />
+			<class name="com.bankguru.payment.Validate_Function_EditCustomer" />
 		</classes>
 	</test> <!-- Test -->
 <!-- 	<test name="Run on CHROME"> -->

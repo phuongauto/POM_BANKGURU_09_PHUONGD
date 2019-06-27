@@ -3,10 +3,12 @@ package commons;
 import org.openqa.selenium.WebDriver;
 
 import pageObjects.DepositPageObject;
+import pageObjects.EditCustomerPageObject;
 import pageObjects.FundTransferPageObject;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
 import pageObjects.NewAccountPageObject;
+import pageObjects.NewCustomerPageObject;
 import pageObjects.RegisterPageObject;
 
 public class PageFactoryManager {
@@ -39,6 +41,14 @@ public class PageFactoryManager {
 	
 	public static FundTransferPageObject getFundTransferPage(WebDriver driver) {
 		return new FundTransferPageObject(driver);
+	}
+
+	public static NewCustomerPageObject getNewCustomerPage(WebDriver driver) {
+		return new NewCustomerPageObject(driver);
+	}
+
+	public static EditCustomerPageObject getEditCustomerPage(WebDriver driver) {
+		return new EditCustomerPageObject(driver);
 	}
 		
 	

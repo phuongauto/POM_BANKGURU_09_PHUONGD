@@ -31,8 +31,8 @@ public class Account_Level_06_MultiBrowser_ParallelTesting extends AbstractTest 
 
 	@Parameters("browser")
 	@BeforeTest
-	public void beforeTest(String browserName) {
-		driver = openMultiBrowser(browserName);
+	public void beforeTest(String browserName, String url) {
+		driver = openMultiBrowser(browserName, url);
 		email = "selenium" + randomNumber() + "@gmail.com";
 		loginPage = PageFactoryManagerSingleton.getLoginPage(driver);
 	}

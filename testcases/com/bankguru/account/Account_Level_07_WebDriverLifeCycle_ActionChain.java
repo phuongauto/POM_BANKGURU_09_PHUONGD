@@ -37,8 +37,8 @@ public class Account_Level_07_WebDriverLifeCycle_ActionChain extends AbstractTes
 
 	@Parameters("browser")
 	@BeforeTest
-	public void beforeTest(String browserName) {
-		driver = openMultiBrowser(browserName);
+	public void beforeTest(String browserName, String url) {
+		driver = openMultiBrowser(browserName, url);
 		email = "selenium" + randomNumber() + "@gmail.com";
 		
 		// Mở app ra thì nó vào trang Login

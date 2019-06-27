@@ -104,14 +104,32 @@ public class AbstractPage {
 		element.sendKeys(valueToSendkey);
 
 	}
+	
+	public void clearTextElement(WebDriver driver, String locator) {
+		element = driver.findElement(By.xpath(locator));
+		element.clear();
+	}
 
+	public void clearTextElement(WebDriver driver, String locator, String... values) {
+		locator = String.format(locator, (Object[]) values);
+		element = driver.findElement(By.xpath(locator));
+		element.clear();
+	}
+	
 	public void selectItemInDefaultDropdown(WebDriver driver, String locator, String value) {
 		WebElement element = driver.findElement(By.xpath(locator));
 		Select select = new Select(element);
 		select.selectByVisibleText(value);
 	}
+	
+	public void selectItemInDefaultDropdown(WebDriver driver, String locator, String expectedValueInDropdown, String... values) {
+		locator = String.format(locator, (Object[]) values);
+		element = driver.findElement(By.xpath(locator));
+		Select select = new Select(element);
+		select.selectByVisibleText(expectedValueInDropdown);
+	}
 
-	public String getSelectedItemInDropdown(WebDriver driver, String locator, String value) {
+	public String getFirstSelectedItemInDropdown(WebDriver driver, String locator, String value) {
 		WebElement element = driver.findElement(By.xpath(locator));
 		Select select = new Select(element);
 		return select.getFirstSelectedOption().getText();
@@ -119,9 +137,15 @@ public class AbstractPage {
 		// do đó phải return và kiểu dữ liệu của hàm là kiểu String, ko phải void
 
 	}
+	
+	public String getFirstSelectedItemInDropdown(WebDriver driver, String locator, String... values) {
+		locator = String.format(locator, (Object[]) values);
+		element = driver.findElement(By.xpath(locator));
+		Select select = new Select(element);
+		return select.getFirstSelectedOption().getText();
+	}
 
-	public void selectItemInCustomDropdown(WebDriver driver, String parentXpath, String allItemXpath,
-			String expectedvalueItem) throws Exception {
+	public void selectItemInCustomDropdown(WebDriver driver, String parentXpath, String allItemXpath, String expectedvalueItem) throws Exception {
 		waitExplicit = new WebDriverWait(driver, 30);
 		WebElement parentDropdown = driver.findElement(By.xpath(parentXpath));
 		javascriptExecutor.executeScript("arguments[0].click()", parentDropdown);
@@ -142,11 +166,19 @@ public class AbstractPage {
 		}
 	}
 
+	// hàm cũ khi chưa sử dụng Rest Parameter
 	public String getAttributeValue(WebDriver driver, String locator, String attributeName) {
 		element = driver.findElement(By.xpath(locator));
 		return element.getAttribute(attributeName);
 	}
-
+	
+	// hàm mới khi đã sử dụng Rest Parameter
+	public String getAttributeValue(WebDriver driver, String locator, String attributeName, String... values) {
+		locator = String.format(locator, (Object[]) values);
+		element = driver.findElement(By.xpath(locator));
+		return element.getAttribute(attributeName);
+	}
+	
 	// hàm cũ khi chưa sử dụng Rest Parameter
 	public String getTextElement(WebDriver driver, String locator) {
 		element = driver.findElement(By.xpath(locator));
@@ -166,13 +198,21 @@ public class AbstractPage {
 
 	}
 
-	public void checkToCheckbox(WebDriver driver, String locator) {
+	public void checkToCheckboxRadioButton(WebDriver driver, String locator) {
 		element = driver.findElement(By.xpath(locator));
 		if (!element.isSelected() == true) {
 			element.click();
 		}
 	}
-
+	
+	public void checkToCheckBoxOrRadioButton(WebDriver driver, String locator, String... values) {
+		locator = String.format(locator, (Object[]) values);
+		element = driver.findElement(By.xpath(locator));
+		if (!element.isSelected()) {
+			element.click();
+		}
+	}
+	
 	public void unCheckToCheckbox(WebDriver driver, String locator) {
 		element = driver.findElement(By.xpath(locator));
 		if (element.isSelected() == true) {
@@ -262,6 +302,14 @@ public class AbstractPage {
 		
 	}
 	
+	public void sendKeyboardToElement(WebDriver driver, String locator, Keys key, String... values) {
+		locator = String.format(locator, (Object[]) values);
+		element = driver.findElement(By.xpath(locator));
+		action = new Actions(driver);
+		action.sendKeys(element, key).perform();;
+		
+	}
+	
 	public void doubleClickToElement(WebDriver driver, String locator) {
 		element = driver.findElement(By.xpath(locator));
 		action = new Actions(driver);
@@ -300,6 +348,13 @@ public class AbstractPage {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		return js.executeScript("arguments[0].click();", element);
 	}
+	
+	public Object clickToElementByJS(WebDriver driver, String locator, String... values) {
+		locator = String.format(locator, (Object[]) values);
+		element = driver.findElement(By.xpath(locator));
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		return js.executeScript("arguments[0].click();", element);
+	}
 
 	public Object sendkeyToElementByJS(WebDriver driver, String locator, String value) {
 		element = driver.findElement(By.xpath(locator));
@@ -311,6 +366,13 @@ public class AbstractPage {
 		element = driver.findElement(By.xpath(locator));
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		return js.executeScript("arguments[0].removeAttribute('" + attribute + "');", element);
+	}
+	
+	public void removeAttributeInDOM(WebDriver driver, String locator, String attribute, String... values) {
+		javascriptExecutor = (JavascriptExecutor) driver;
+		locator = String.format(locator, (Object[]) values);
+		element = driver.findElement(By.xpath(locator));
+		javascriptExecutor.executeScript("arguments[0].removeAttribute('" + attribute + "');", element);
 	}
 	
 	public Object setAttributeInDOM(WebDriver driver, String locator, String attribute, String value) {
@@ -407,6 +469,8 @@ public class AbstractPage {
 			return PageFactoryManager.getHomePage(driver);
 		case "New Account":
 			return PageFactoryManager.getNewAccountPage(driver);
+		case "New Customer":
+			return PageFactoryManager.getNewCustomerPage(driver);
 		case "Deposit":
 			return PageFactoryManager.getDepositPage(driver);
 		case "Fund Transfer":
@@ -446,7 +510,10 @@ public class AbstractPage {
 	// nếu có quá nhiều page thì không thể cứ switch case mãi được(tầm 20 page trở lên thì sao?). Ta sẽ code như sau:
 	public void openMultiplePages(WebDriver driver, String pageName) {
 		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
-		clickToElement(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
+		if (driver.toString().toLowerCase().contains("internet explorer")) {
+			clickToElementByJS(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
+		} else 
+				clickToElement(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
 	}
 	// Sau đó code ở testcase thì sẽ như sau:
 	/*
@@ -468,14 +535,39 @@ public class AbstractPage {
 	*/
 	//===========================================================================
 	// Các hàm dynamic ở bài học Dynamic Element:
-	public void inputToDynamicTextboxTextArea(WebDriver driver, String fieldName, String valueToSendkey) {
-		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXT_AREA_BUTTON_CHECKBOX, fieldName);
-		sendkeyToElement(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXT_AREA_BUTTON_CHECKBOX, valueToSendkey, fieldName);
+	public void inputToDynamicTextboxTextArea(WebDriver driver, String fieldName, String sendKeyValue) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXTAREA, fieldName);
+		sendkeyToElement(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXTAREA, sendKeyValue, fieldName);
 	}
 	
-	public void clickToDynamicButtonTextboxTextArea(WebDriver driver, String fieldName) {
-		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXT_AREA_BUTTON_CHECKBOX, fieldName);
-		clickToElement(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXT_AREA_BUTTON_CHECKBOX, fieldName);
+	public void clickToDynamicTextboxTextArea(WebDriver driver, String fieldName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXTAREA, fieldName);
+		clickToElement(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXTAREA, fieldName);
+	}
+	
+	public void pressTabToDynamicTextboxTextArea(WebDriver driver, String fieldName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXTAREA, fieldName);
+		sendKeyboardToElement(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXTAREA, Keys.TAB, fieldName);
+	}
+	
+	public void clearDynamicTextboxTextArea(WebDriver driver, String fieldName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXTAREA, fieldName);
+		clearTextElement(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXTAREA, fieldName);
+	}
+	
+	public void removeAtrributeInDynamicTextboxArea(WebDriver driver, String fieldName, String attribute) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXTAREA, fieldName);
+		removeAttributeInDOM(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXTAREA, attribute, fieldName);
+	}
+	
+	public String getTextInDynamicTextbox(WebDriver driver, String fieldName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXTAREA, fieldName);
+		return getAttributeValue(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXTAREA, "value", fieldName);
+	}
+	
+	public String getTextInDynamicTextArea(WebDriver driver, String fieldName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXTAREA, fieldName);
+		return getTextElement(driver, AbstractPageUI.DYNAMIC_TEXTBOX_TEXTAREA, fieldName);
 	}
 	
 	public String getDynamicErrorMessage(WebDriver driver, String fieldName) {
@@ -486,5 +578,39 @@ public class AbstractPage {
 	public boolean isDynamicPageTitleDisplayed(WebDriver driver, String pageTitle) {
 		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_PAGE_TITLE, pageTitle);
 		return isControlDisplayed(driver, AbstractPageUI.DYNAMIC_PAGE_TITLE, pageTitle);
+	}
+	
+	public void checkToDynamicCheckboxOrRadioButton(WebDriver driver, String fieldName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_RADIO_BUTTON, fieldName);
+		checkToCheckBoxOrRadioButton(driver, AbstractPageUI.DYNAMIC_RADIO_BUTTON, fieldName);
+	}
+
+	public void clickToDynamicButton(WebDriver driver, String fieldName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_BUTTON, fieldName);
+		if (driver.toString().toLowerCase().contains("internet explorer")) {
+			clickToElementByJS(driver, AbstractPageUI.DYNAMIC_BUTTON, fieldName);
+		} else
+			clickToElement(driver, AbstractPageUI.DYNAMIC_BUTTON, fieldName);
+	}
+	
+	public String getTextDynamicValidateMessage(WebDriver driver, String fieldName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_ERROR_MESSAGE, fieldName);
+		return getTextElement(driver, AbstractPageUI.DYNAMIC_ERROR_MESSAGE, fieldName);
+		
+	}
+	
+	public void selectItemInDynamicDropdown(WebDriver driver, String fieldName, String expectedValueInDropdown) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_DROPDOWN_LIST, fieldName);
+		selectItemInDefaultDropdown(driver, AbstractPageUI.DYNAMIC_DROPDOWN_LIST, expectedValueInDropdown, fieldName);
+	}
+
+	public String getSelectedItemInDynamicDropdown(WebDriver driver, String fieldName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_DROPDOWN_LIST, fieldName);
+		return getFirstSelectedItemInDropdown(driver, AbstractPageUI.DYNAMIC_DROPDOWN_LIST, fieldName);
+	}
+	
+	public String getTextDynamicTableRowName(WebDriver driver, String fieldName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TABLE_ROW_NAME, fieldName);
+		return getTextElement(driver, AbstractPageUI.DYNAMIC_TABLE_ROW_NAME, fieldName);
 	}
 }

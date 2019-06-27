@@ -41,7 +41,6 @@ public class NewCustomer {
 		
 		homePage = new HomePageObject(driver);
 		Assert.assertTrue(homePage.isWelcomeMessageDisplayed());
-		homePage.clickToNewCustomerPage();
 		
 		newCustomerPage = new NewCustomerPageObject(driver);
 		Assert.assertTrue(newCustomerPage.isAddNewCustomerDisplayed());

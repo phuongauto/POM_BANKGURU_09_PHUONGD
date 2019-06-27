@@ -25,11 +25,12 @@ public class HomePageObject extends AbstractPage {
 	}
 
 	public boolean isUserIDDisplayed(String userIDInfor) {
-		String USER_ID_FORMAT = String.format(HomePageUI.USER_ID_TEXT, userIDInfor);
+		String USER_ID_FORMAT = String.format(HomePageUI.DYNAMIC_WELCOME_USER_ID_TEXT, userIDInfor);
 		waitForElementPresence(driver, USER_ID_FORMAT);
 		return isControlDisplayed(driver, USER_ID_FORMAT);
 	}
-
+	
+	/*
 	public void clickToNewCustomerPage() {
 		waitForElementVisible(driver, HomePageUI.WELCOME_MESSAGE_TEXT);
 		clickToElement(driver, HomePageUI.NEW_CUSTOMER_PAGE_NAVIGATOR);
@@ -43,7 +44,7 @@ public class HomePageObject extends AbstractPage {
 	public void clickToDeleteCustomerPage() {
 		waitForElementVisible(driver, HomePageUI.WELCOME_MESSAGE_TEXT);
 		clickToElement(driver, HomePageUI.DELETE_CUSTOMER_PAGE_NAVIGATOR);
-	}
+	}*/
 
 	public LoginPageObject clickToLogoutLink() {
 		waitForElementVisible(driver, HomePageUI.LOG_OUT_LINK);
