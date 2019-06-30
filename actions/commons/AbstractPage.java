@@ -613,4 +613,9 @@ public class AbstractPage {
 		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TABLE_ROW_NAME, fieldName);
 		return getTextElement(driver, AbstractPageUI.DYNAMIC_TABLE_ROW_NAME, fieldName);
 	}
+	
+	public String getTextDynamicTableInfo(WebDriver driver, String fieldName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TABLE_INFOR, fieldName);
+		return getTextElement(driver, AbstractPageUI.DYNAMIC_TABLE_INFOR, fieldName);
+	}
 }

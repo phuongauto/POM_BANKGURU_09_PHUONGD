@@ -14,7 +14,8 @@ LoginPageObject chứa/quản lý các hoạt động của Login Page.
  */
 public class NewAccountPageObject extends AbstractPage {
 	private WebDriver driver;
-
+	public String getTextCurrentAmount;
+	
 	public NewAccountPageObject(WebDriver mappingdriver) {
 		driver = mappingdriver;
 	}
@@ -25,8 +26,6 @@ public class NewAccountPageObject extends AbstractPage {
 		return isControlDisplayed(driver, NewAccountPageUI.ADD_NEW_ACCOUNT_FORM);
 		
 	}
-	
-	
 	
 	/* cái này sẽ được khai báo ở AbstractPage để dùng chung
 	public DepositPageObject openDepositPage() {

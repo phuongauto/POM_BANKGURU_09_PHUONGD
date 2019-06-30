@@ -6,10 +6,10 @@ import bankguru.FundTransferPageUI;
 import commons.AbstractPage;
 import commons.PageFactoryManager;
 
-public class FundTransferPageObject extends AbstractPage {
+public class ChangePasswordPageObject extends AbstractPage {
 	private WebDriver driver;
 
-	public FundTransferPageObject(WebDriver mappingdriver) {
+	public ChangePasswordPageObject(WebDriver mappingdriver) {
 		driver = mappingdriver;
 	}
 }

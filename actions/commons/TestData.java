@@ -10,8 +10,6 @@ public class TestData {
 	public static final String[] LESS_THAN_6_DIGITS_PIN_VALUE = new String[] { "6", "68", "369", "3698", "61289" };
 	public static final String[] INCORRECT_EMAILS = new String[] { "phuongguru@gmail", "phuongguru", "phuongguru@", "phuongguru@gmail.", "phuonggurugmail.com" };
 	
-	public static final String VALID_CUSTOMER_ID = "061289";
-	
 	public static final String VALID_NAME = "Phuong Dam";
 	public static final String EXPECTED_GENDER = "male";
 	public static final String VALID_DOB = "1989-12-06";

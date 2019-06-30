@@ -34,6 +34,7 @@ public class AbstractPageUI {
 	public static final String DYNAMIC_PAGE_TITLE = "//p[@class='heading3' and text()='%s']";
 	public static final String DYNAMIC_TABLE_ROW_NAME = "//td[text()='%s']/following-sibling::td";
 	public static final String DYNAMIC_BUTTON = "//input[@name='%s']";
+	public static final String DYNAMIC_TABLE_INFOR = "//td[text()='%s']//following-sibling::td";
 	
 	
 	

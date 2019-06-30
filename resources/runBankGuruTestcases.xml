@@ -5,7 +5,10 @@
 		<parameter name="url" value="bankguru" />
 		<classes>
 			<class name="commons.Common_01_RegisterToSystem" />
-			<class name="com.bankguru.payment.Validate_Function_EditCustomer" />
+			<class name="com.bankguru.payment.Payment_Function" />
+			
+			<!-- <class name="commons.Common_02_CreateNewCustomer" />-->
+			<!--<class name="com.bankguru.payment.Validate_Function_EditCustomer" />-->
 		</classes>
 	</test> <!-- Test -->
 <!-- 	<test name="Run on CHROME"> -->
