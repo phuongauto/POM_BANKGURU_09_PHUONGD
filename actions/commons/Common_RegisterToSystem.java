@@ -10,7 +10,7 @@ import org.testng.annotations.Parameters;
 import pageObjects.LoginPageObject;
 import pageObjects.RegisterPageObject;
 
-public class Common_01_RegisterToSystem extends AbstractTest {
+public class Common_RegisterToSystem extends AbstractTest {
 	private WebDriver driver;
 	private LoginPageObject loginPage;
 	private RegisterPageObject registerPage;

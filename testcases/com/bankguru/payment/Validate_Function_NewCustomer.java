@@ -19,7 +19,7 @@ import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
 import pageObjects.NewCustomerPageObject;
 import pageObjects.RegisterPageObject;
-import commons.Common_01_RegisterToSystem;
+import commons.Common_RegisterToSystem;
 import commons.TestData;
 
 
@@ -48,8 +48,8 @@ public class Validate_Function_NewCustomer extends AbstractTest {
 		verifyTrue(loginPage.isLoginFormDisplayed());
 		
 		log.info("Precondition: Step 03 - Input to userID and 'Password' textboxes");
-		loginPage.inputToDynamicTextboxTextArea(driver, "uid", Common_01_RegisterToSystem.USER_ID_INFOR);
-		loginPage.inputToDynamicTextboxTextArea(driver, "password", Common_01_RegisterToSystem.PASSWORD_INFOR);
+		loginPage.inputToDynamicTextboxTextArea(driver, "uid", Common_RegisterToSystem.USER_ID_INFOR);
+		loginPage.inputToDynamicTextboxTextArea(driver, "password", Common_RegisterToSystem.PASSWORD_INFOR);
 		
 		log.info("Precondition: Step 04 - Click Login button to open HomePage");
 		loginPage.clickToDynamicButton(driver, "btnLogin");
@@ -59,7 +59,7 @@ public class Validate_Function_NewCustomer extends AbstractTest {
 		verifyTrue(homePage.isWelcomeMessageDisplayed());
 
 		log.info("Precondition: Step 06 - Verify User ID infor displayed");
-		verifyTrue(homePage.isUserIDDisplayed(Common_01_RegisterToSystem.USER_ID_INFOR));
+		verifyTrue(homePage.isUserIDDisplayed(Common_RegisterToSystem.USER_ID_INFOR));
 
 		log.info("Precondition: Step 07 - Click to New Customer link");
 		homePage.openMultiplePage(driver, "New Customer");

@@ -9,8 +9,8 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.AbstractTest;
-import commons.Common_01_RegisterToSystem;
-import commons.Common_02_CreateNewCustomer;
+import commons.Common_RegisterToSystem;
+import commons.Common_CreateNewCustomer;
 import commons.PageFactoryManager;
 import commons.TestData;
 import commons.ValidateMessage;
@@ -39,8 +39,8 @@ public class Validate_Function_EditCustomer extends AbstractTest {
 		verifyTrue(loginPage.isLoginFormDisplayed());
 
 		log.info("Precondition: Step 03 - Input to userID and 'Password' textboxes");
-		loginPage.inputToDynamicTextboxTextArea(driver, "uid", Common_01_RegisterToSystem.USER_ID_INFOR);
-		loginPage.inputToDynamicTextboxTextArea(driver, "password", Common_01_RegisterToSystem.PASSWORD_INFOR);
+		loginPage.inputToDynamicTextboxTextArea(driver, "uid", Common_RegisterToSystem.USER_ID_INFOR);
+		loginPage.inputToDynamicTextboxTextArea(driver, "password", Common_RegisterToSystem.PASSWORD_INFOR);
 
 		log.info("Precondition: Step 04 - Click to Login button to open HomePage");
 		loginPage.clickToDynamicButton(driver, "btnLogin");
@@ -50,7 +50,7 @@ public class Validate_Function_EditCustomer extends AbstractTest {
 		verifyTrue(homePage.isWelcomeMessageDisplayed());
 
 		log.info("Precondition: Step 06 - Verify User ID infor displayed");
-		verifyTrue(homePage.isUserIDDisplayed(Common_01_RegisterToSystem.USER_ID_INFOR));
+		verifyTrue(homePage.isUserIDDisplayed(Common_RegisterToSystem.USER_ID_INFOR));
 
 		log.info("Precondition: Step 07 - Click To 'Edit Customer' link");
 		homePage.openMultiplePage(driver, "Edit Customer");		
@@ -116,7 +116,7 @@ public class Validate_Function_EditCustomer extends AbstractTest {
 		log.info("EditCustomer 04: Step 01 - Clear 'Customer ID' textbox");
 		editCustomerPage.clearDynamicTextboxTextArea(driver, "cusid");
 		log.info("EditCustomer 04: Step 02 - Input valid data to 'Customer ID' textbox");
-		editCustomerPage.inputToDynamicTextboxTextArea(driver, "cusid", Common_02_CreateNewCustomer.CUSTOMER_ID);
+		editCustomerPage.inputToDynamicTextboxTextArea(driver, "cusid", Common_CreateNewCustomer.CUSTOMER_ID);
 		log.info("EditCustomer 04: Step 03 - Submit");
 		editCustomerPage.clickToDynamicButton(driver, "AccSubmit");
 		log.info("EditCustomer 04: Step 04 - Verify Edit Customer form displayed");

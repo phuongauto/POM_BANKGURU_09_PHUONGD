@@ -7,7 +7,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.AbstractTest;
-import commons.Common_01_RegisterToSystem;
+import commons.Common_RegisterToSystem;
 import commons.PageFactoryManager;
 import commons.PaymentTestData;
 import pageObjects.BalanceEnquiryPageObject;
@@ -50,15 +50,15 @@ public class Payment_Function extends AbstractTest{
 			log.info("Precondition: Step 02 - Verify Login Form displayed");
 			verifyTrue(loginPage.isLoginFormDisplayed());
 			log.info("Precondition: Step 03 - Input to userID and 'Password' textboxes");
-			loginPage.inputToDynamicTextboxTextArea(driver, "uid", Common_01_RegisterToSystem.USER_ID_INFOR);
-			loginPage.inputToDynamicTextboxTextArea(driver, "password", Common_01_RegisterToSystem.PASSWORD_INFOR);
+			loginPage.inputToDynamicTextboxTextArea(driver, "uid", Common_RegisterToSystem.USER_ID_INFOR);
+			loginPage.inputToDynamicTextboxTextArea(driver, "password", Common_RegisterToSystem.PASSWORD_INFOR);
 			log.info("Precondition: Step 04 - Click to Login button open HomePage");
 			loginPage.clickToDynamicButton(driver, "btnLogin");
 			homePage = PageFactoryManager.getHomePage(driver);
 			log.info("Precondition: Step 05 - Verify Welcome message on Home page displayed");
 			verifyTrue(homePage.isWelcomeMessageDisplayed());
 			log.info("Precondition: Step 06 - Verify User ID infor displayed");
-			verifyTrue(homePage.isUserIDDisplayed(Common_01_RegisterToSystem.USER_ID_INFOR));
+			verifyTrue(homePage.isUserIDDisplayed(Common_RegisterToSystem.USER_ID_INFOR));
 		}
 
 		@Test

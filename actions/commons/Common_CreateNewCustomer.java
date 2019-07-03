@@ -7,13 +7,13 @@ import org.testng.annotations.Parameters;
 import commons.PageFactoryManager;
 import commons.TestData;
 import commons.PaymentTestData;
-import commons.Common_01_RegisterToSystem;
+import commons.Common_RegisterToSystem;
 import commons.AbstractTest;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
 import pageObjects.NewCustomerPageObject;
 
-public class Common_02_CreateNewCustomer extends AbstractTest {
+public class Common_CreateNewCustomer extends AbstractTest {
 	private WebDriver driver;
 	private LoginPageObject loginPage;
 	private HomePageObject homePage;
@@ -34,8 +34,8 @@ public class Common_02_CreateNewCustomer extends AbstractTest {
 		verifyTrue(loginPage.isLoginFormDisplayed());
 		
 		log.info("CreateNewCustomer: Step 03 - Input to userID and 'Password' textboxes");
-		loginPage.inputToDynamicTextboxTextArea(driver, "uid", Common_01_RegisterToSystem.USER_ID_INFOR);
-		loginPage.inputToDynamicTextboxTextArea(driver, "password", Common_01_RegisterToSystem.PASSWORD_INFOR);
+		loginPage.inputToDynamicTextboxTextArea(driver, "uid", Common_RegisterToSystem.USER_ID_INFOR);
+		loginPage.inputToDynamicTextboxTextArea(driver, "password", Common_RegisterToSystem.PASSWORD_INFOR);
 		
 		log.info("CreateNewCustomer: Step 04 - Click to Login button to move to HomePage Url");
 		loginPage.clickToDynamicButton(driver, "btnLogin");
@@ -45,7 +45,7 @@ public class Common_02_CreateNewCustomer extends AbstractTest {
 		verifyTrue(homePage.isWelcomeMessageDisplayed());
 		
 		log.info("CreateNewCustomer: Step 06 - Verify User ID infor displayed");
-		verifyTrue(homePage.isUserIDDisplayed(Common_01_RegisterToSystem.USER_ID_INFOR));
+		verifyTrue(homePage.isUserIDDisplayed(Common_RegisterToSystem.USER_ID_INFOR));
 		
 		log.info("CreateNewCustomer: Step 07 - Click to 'New Customer' link");
 		homePage.openMultiplePage(driver, "New Customer");
